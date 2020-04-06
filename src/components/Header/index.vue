@@ -32,7 +32,7 @@
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input type="text" id="autocomplete" class="input-error input-xxlarge" />
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
           <button class="sui-btn btn-xlarge btn-danger" type="button" @click="toSearch">搜索</button>
         </form>
       </div>
@@ -44,6 +44,12 @@
   export default {
     name: 'Header',
 
+    data () {
+      return {
+        keyword: ''
+      }
+    },
+
     methods: {
       toSearch () {
         /* 
@@ -51,7 +57,34 @@
         this.$router: 得到的是路由器对象(包含跳转路由的一些方法)
         this.$route: 得到的是当前路由信息对象(包含的是当前路由的相关数据属性: path/params/query/meta)
         */
-        this.$router.push('/search')
+        // this.$router.push('/search')
+
+        // 问题: 编程式路由跳转到当前路由, 控制台抛出NavigationDuplicated的错误
+        // 方案1: 在跳转时指定成功或失败的回调函数
+        /* this.$router.push('/search', () => {  // 可以
+          // console.log('跳转成功')
+        }) */
+        // this.$router.push('/search').then(() => {})  // 不可以
+        
+        // this.$router.push('/search', undefined, () => {})  // 可以
+        // this.$router.push('/search').catch(() => {}) // 可以
+        
+        // 使用query参数
+        // this.$router.push(`/search?keyword=${this.keyword}`)
+        // this.$router.push({path: '/search', query: {keyword: this.keyword}})
+        // 使用params参数
+        // this.$router.push(`/search/${this.keyword}`)
+        // this.$router.push({path: '/search', params: {keyword: this.keyword}})  // 不可以
+        this.$router.push({name: 'search', params: {keyword: this.keyword}})  // 不可以
+
+
+        // this.$router.replace('/search')
+
+        /* 
+        , (error) => {
+          console.log('跳转路由出错', error)
+        }
+        */
       }
     }
   }
