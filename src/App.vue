@@ -1,9 +1,11 @@
 <template>
   <div class="app">
     <Header/>
+    
     <!-- 一级路由显示在此 -->
     <router-view></router-view>
-    <Footer/>
+
+    <Footer v-if="!$route.meta.isHideFooter"/>
   </div>
 </template>
 

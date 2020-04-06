@@ -6,11 +6,10 @@
 
 ## 使用脚手架创建项目并运行
 
-
-
 ## 引入less
 
 ## 引入vue-router
+    解决相对路径引入公用样式的问题  ==> 使用以/开头的路径
 
 ## 使用git管理项目
     1). 如何在开发/个人分支上处理
@@ -41,3 +40,17 @@
     面试问题: 路由组件能不能传递props数据?
         可以: 可以将query或且params参数映射/转换成props传递给路由组件对象
         实现: props: (route) => ({ keyword1: route.params.keyword, keyword2: route.query.keyword })
+
+## Footer组件
+    如何控制footer/header组件在部分路由组件上不显示?
+    利用路由的meta配置:
+        meta: {
+          isHideFooter: true, // 标识footer是否隐藏
+        }
+        <Footer v-if="!$route.meta.isHideFooter"/>
+
+## Home组件
+    Home静态路由组件
+    从Home组件中抽取各个子组件并使用
+        全局组件
+        局部组件

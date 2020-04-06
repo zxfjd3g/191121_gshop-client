@@ -5,7 +5,6 @@ import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 import Register from '@/pages/Register'
 import Login from '@/pages/Login'
-import VueRouter from 'vue-router'
 
 export default [
   {
@@ -21,10 +20,16 @@ export default [
   },
   {
     path: '/register',
-    component: Register
+    component: Register,
+    meta: {
+      isHideFooter: true, // 标识footer是否隐藏
+    }
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+      isHideFooter: true, // 标识footer是否隐藏
+    }
   },
 ]
