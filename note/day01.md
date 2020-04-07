@@ -49,7 +49,7 @@
     4). 解决冲突
         当推送新的代码时, 如果远程已经有别的同事推送的同一个文件  ==> 推送就会失败
         解决: 先pull远程的更新到本地: git pull origin dev   ===> 如果修改了同一个文件就会有冲突
-        解决冲突:  
+        解决冲突: 修正冲突的内容  => git add . => git commit -m "xxx" => git push origin dev 
   
 ## Header组件
     使用vscode的beautify file插件对vue组件文件进行格式化
@@ -60,7 +60,7 @@
         编程式: this.$router.push()/replace()
     面试问题: 编程式路由跳转到当前路由, 控制台抛出NavigationDuplicated的错误
         方案1: 在跳转时指定成功或失败的回调函数
-        方案2: 修正Vue原型上的push和replace方法
+        方案2: 修正Vue原型上的push和replace方法 (优秀)
     跳转路由携带参数
         params参数
         query参数
