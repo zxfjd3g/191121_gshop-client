@@ -40,6 +40,12 @@
     2). 其他人如何得到dev分支
         git clone https://github.com/zxfjd3g/191121_gshop-client.git
         git checkout -b dev origin/dev
+    3). 将开发分支合并到master分支
+        合并本地分支: 
+            git checkout master
+            git merge dev
+        推送到远程
+            git push origin master
   
 ## Header组件
     使用vscode的beautify file插件对vue组件文件进行格式化
