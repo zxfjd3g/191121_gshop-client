@@ -47,7 +47,9 @@
         推送到远程
             git push origin master
     4). 解决冲突
-        
+        当推送新的代码时, 如果远程已经有别的同事推送的同一个文件  ==> 推送就会失败
+        解决: 先pull远程的更新到本地: git pull origin dev   ===> 如果修改了同一个文件就会有冲突
+        解决冲突:  
   
 ## Header组件
     使用vscode的beautify file插件对vue组件文件进行格式化
