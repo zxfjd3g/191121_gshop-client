@@ -12,7 +12,7 @@ const mutations = {
   接收保存分类列表
   */
   RECEIVE_CATEGORYS (state, categorys) {
-    state.baseCategoryList = categorys
+    state.baseCategoryList = categorys.splice(0, categorys.length-2)
   }
 }
 const actions = {
