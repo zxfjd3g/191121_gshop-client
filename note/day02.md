@@ -45,9 +45,10 @@
 ## 4. TypeNav组件
     1). 组件与vuex交互, 动态显示3级分类
     2). 控制2/3级分类列表的显示与隐藏
-    3). 点击某个分类项, 跳转到search路由: /search?categoryName=电子书刊&category2Id=1
-        categoryName: xxx
-        category1Id: 1级分类ID
-        category2Id: 2级分类ID
-        category3Id: 3级分类ID
+    3). 点击某个分类项, 跳转到search路由: 
+        携带query参数: /search?categoryName=电子书刊&category2Id=1
+            categoryName: xxx
+            category1Id: 1级分类ID / category2Id: 2级分类ID / category3Id: 3级分类ID
+        解决方案一: 使用<router-link :to="{path: '/search', query: {...}}">
+            问题: 效率太低(创建了太多的RouterLink组件对象, 内部绑定了太多的点击监听)  
     
