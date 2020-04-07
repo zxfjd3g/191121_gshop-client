@@ -46,6 +46,8 @@
             git merge dev
         推送到远程
             git push origin master
+    4). 解决冲突
+        
   
 ## Header组件
     使用vscode的beautify file插件对vue组件文件进行格式化
