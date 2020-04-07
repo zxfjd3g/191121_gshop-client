@@ -69,6 +69,10 @@
     面试问题: 指定params参数时可不可以用path和params配置的组合?
         不可以用path和params配置的组合
         只能用name和params配置的组件
+    面试问题: 如果指定name与params配置, 但params中数据是一个"", 地址栏路径有问题
+        如果有参数数据, 指定params
+        如果没有参数数据, 不指定params
+
     面试问题: 路由组件能不能传递props数据?
         可以: 可以将query或且params参数映射/转换成props传递给路由组件对象
         实现: props: (route) => ({ keyword1: route.params.keyword, keyword2: route.query.keyword })

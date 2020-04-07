@@ -27,7 +27,7 @@
     <div class="bottom">
       <h1 class="logoArea">
         <a class="logo" title="尚品汇" href="###" target="_blank">
-          <img src="./images/Logo.png" alt="">
+          <img src="./images/logo.png" alt="">
         </a>
       </h1>
       <div class="searchArea">
@@ -75,8 +75,11 @@
         // 使用params参数
         // this.$router.push(`/search/${this.keyword}`)
         // this.$router.push({path: '/search', params: {keyword: this.keyword}})  // 不可以
-        this.$router.push({name: 'search', params: {keyword: this.keyword}})  // 不可以
-
+        if (this.keyword) {
+          this.$router.push({name: 'search', params: {keyword: this.keyword}})  // 可以
+        } else {
+          this.$router.push({name: 'search'})
+        }
 
         // this.$router.replace('/search')
 

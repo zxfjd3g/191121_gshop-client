@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import TodyRecommend from './TodyRecommend/TodyRecommend'
+  import TodyRecommend from './TodayRecommend/TodayRecommend'
   import Brand from './Brand/Brand'
   import Floor from './Floor/Floor'
   import Like from './Like/Like'
