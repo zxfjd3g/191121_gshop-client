@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import TypeNav from './components/TypeNav'
+import './mock/mockServer' // 加载mock接口的主模块
 
 // 注册全局组件
 Vue.component('TypeNav', TypeNav) // 全局使用<TypeNav/> <type-nav/>

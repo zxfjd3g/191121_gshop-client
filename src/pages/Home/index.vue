@@ -35,6 +35,13 @@
   import Rank from './Rank/Rank'
   export default {
     name: 'Home',
+
+    mounted () {
+      // 触发vuex的异步action调用, 从mock接口请求数据到state中
+      this.$store.dispatch('getBanners')
+      this.$store.dispatch('getFloors')
+    },
+
     components: { // 局部注册, 只能在当前组件中使用
       TodyRecommend,
       Brand,

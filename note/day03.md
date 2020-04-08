@@ -44,3 +44,4 @@
 ### 设计json数据
 
 ### 如何实现mock?
+    1). 使用mockjs来实现mock接口

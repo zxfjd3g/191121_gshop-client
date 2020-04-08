@@ -3,20 +3,20 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
+              <img src="/images/banner1.jpg" alt="">
             </div>
             <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
+              <img src="/images/banner2.jpg" alt="">
             </div>
             <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
+              <img src="/images/banner3.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="/images/banner4.jpg" alt="">
+            </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -110,8 +110,33 @@
 </template>
 
 <script>
+  import Swiper from 'swiper'
+  import 'swiper/css/swiper.min.css'
+
+  
+
   export default {
     name: 'ListContainer',
+
+    // 在页面初始显示后立即执行
+    mounted () {
+      // 要求: 创建swiper对象必须要在轮播列表页面显示之后执行才可以  ==> 否则轮播效果有问题
+      new Swiper('.swiper-container', { // 配置对象
+        // direction: 'vertical', // 垂直切换选项   默认是水平轮播
+        loop: true, // 循环模式
+
+        // 分页器
+        pagination: {
+          el: '.swiper-pagination',
+        },
+
+        // 前进后退按钮
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }
+      })
+    }
   }
 </script>
 
