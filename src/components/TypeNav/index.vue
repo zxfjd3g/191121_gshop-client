@@ -3,16 +3,6 @@
   <div class="type-nav">
     <div class="container">
       <h2 class="all">全部商品分类</h2>
-      <nav class="nav">
-        <a href="###">服装城</a>
-        <a href="###">美妆馆</a>
-        <a href="###">尚品汇超市</a>
-        <a href="###">全球购</a>
-        <a href="###">闪购</a>
-        <a href="###">团购</a>
-        <a href="###">有趣</a>
-        <a href="###">秒杀</a>
-      </nav>
       <div class="sort" @mouseleave="currentIndex=-1">
         <div class="all-sort-list2">
           <div class="item"  v-for="(c1, index) in categoryList" :key="c1.categoryId" 
@@ -50,6 +40,16 @@
           </div>
         </div>
       </div>
+      <nav class="nav">
+        <a href="###">服装城</a>
+        <a href="###">美妆馆</a>
+        <a href="###">尚品汇超市</a>
+        <a href="###">全球购</a>
+        <a href="###">闪购</a>
+        <a href="###">团购</a>
+        <a href="###">有趣</a>
+        <a href="###">秒杀</a>
+      </nav>
     </div>
   </div>
 </template>
@@ -71,6 +71,10 @@ export default {
   },
 
   computed: {
+
+    /* categoryList () {
+      return this.$store.state.home.baseCategoryList
+    }, */
     // ...mapState(['home']),   // {baseCategoryList: []}
     // ...mapState({home: 'home'}),   // {baseCategoryList: []}
     ...mapState({
@@ -136,7 +140,6 @@ export default {
     }
 
     .sort {
-      position: absolute;
       left: 0;
       top: 45px;
       width: 210px;

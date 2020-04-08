@@ -47,7 +47,12 @@
     }
 
     document.getElementById('handle').onclick = handleClick
-    document.getElementById('throttle').onclick = _.throttle(handleClick, 2000, {trailing: false})
+    /* 
+    _.throttle(handleFn, delay, options)返回一个新函数, 就是绑定事件监听的回调函数
+      handleFn: 真正处理事件的回调函数, 由throttle()返回的函数内部间隔指定的dalay时间后调用
+    _.debounce()语法一样
+    */
+    document.getElementById('throttle').onclick = _.throttle(handleClick, 2000)
     document.getElementById('debounce').onclick = _.debounce(handleClick, 2000)
   </script>
 

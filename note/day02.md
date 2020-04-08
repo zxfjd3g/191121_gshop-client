@@ -1,9 +1,7 @@
 ## 今日任务
     1). ajax与后台交互
     2). vuex
-    3). TypeNav动态组件
-    4). mock数据接口
-    5). 利用mock数据实现动态ListConter组件与Floor组件
+    3). TypeNav动态组件(部分)
 
 
 ## 1. 使用postman测试接口
@@ -13,12 +11,12 @@
     4). 保存测试接口 ==> 后面可以反复使用
 
 ## 2. ajax与后台交互
-    1). 对axios进行二次封装
+    1). 对axios进行二次封装: api/ajax.js
         1. 配置通用的基础路径和超时
         2. 显示请求进度条
         3. 成功返回的数据不再是response, 而直接是响应体数据response.data
         4. 统一处理请求错误, 具体请求也可以选择处理或不处理
-    2). 定义接口请求函数
+    2). 定义接口请求函数: api/index.js
         内部调用ajax函数
         函数的返回值是promise
     3). 调用接口请求函数发请求
@@ -41,10 +39,22 @@
                 baseCategoryList: []
             }
         }
+    5). vuex与api交互
+        异步action: 调用api接口请求函数  ==> 成功之后commit  ===> 调用mutation  ==> 更新状态数据
 
 ## 4. TypeNav组件
     1). 组件与vuex交互, 动态显示3级分类
+        a. 触发异步action执行, 将数据从接口请求获取到state中: this.$store.dispatch(action)
+        b. 通过mapState()/mapGetters()来将vuex中的数据读取到组件的计算属性
+        c. 在模板中显示读取到的计算属性数据
+
     2). 控制2/3级分类列表的显示与隐藏
+        @mouseenter  ==> 显示当前一级分类的2/3级分类
+        @mouseleave  ==> 隐藏当前一级分类的2/3级分类
+        设计一个标识当前分类下标的数据: currentIndex=-1
+        当前分类的类名: :class="{item_on: currentIndex===index}"
+        item_on类的样式: 背景色 / 下级列表display: block
+
     3). 点击某个分类项, 跳转到search路由: 
         携带query参数: /search?categoryName=电子书刊&category2Id=1
             categoryName: xxx
