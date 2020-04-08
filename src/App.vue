@@ -19,6 +19,9 @@ export default {
   async mounted () {
     // const result = await reqBaseCategoryList()
     // console.log('result', result)
+
+    // 触发vuex中的getBaseCategoryList action调用 ==> 的切换路由时不会执行 ==> 只发一次请求
+    this.$store.dispatch('getBaseCategoryList')
   },
 
   components: {

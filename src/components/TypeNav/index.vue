@@ -1,57 +1,62 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container" @mouseenter="isShowFirst=true" 
+    <div class="container" >
+      
+      <div @mouseenter="isShowFirst=true" 
         @mouseleave="hideFirst">
-      <h2 class="all">全部商品分类</h2>
-      <div class="sort" v-if="isShowFirst" @mouseleave="currentIndex=-1" @click="toSearch">
-        <div class="all-sort-list2">
-          <div class="item"  v-for="(c1, index) in categoryList" :key="c1.categoryId" 
-            :class="{item_on: index===currentIndex}" 
-            @mouseenter="showSubCategorys(index)"
-            >
-            <!-- 
-               &.item_on {
-                  background: #ccc;
-                  .item-list {
-                    display: block;
+        <h2 class="all">全部商品分类</h2>
+        <div class="sort" v-if="isShowFirst" 
+          @click="toSearch">
+          <div class="all-sort-list2">
+            <div class="item"  v-for="(c1, index) in categoryList" :key="c1.categoryId" 
+              :class="{item_on: index===currentIndex}" 
+              @mouseenter="showSubCategorys(index)"
+              >
+              <!-- 
+                &.item_on {
+                    background: #ccc;
+                    .item-list {
+                      display: block;
+                    }
                   }
-                }
-             -->
-            <h3>
-              <a href="javascript:" 
-                :data-categoryName="c1.categoryName"
-                :data-category1Id="c1.categoryId"
-              >{{c1.categoryName}}</a>
-              <!-- <router-link :to="{path: '/search', query: {categoryName: c1.categoryName, category1Id: c1.categoryId}}">{{c1.categoryName}}</router-link> -->
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem">
-                <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                  <dt>
-                    <a href="javascript:" 
-                      :data-categoryName="c2.categoryName"
-                      :data-category2Id="c2.categoryId"
-                    >{{c2.categoryName}}</a>
-                    <!-- <a href="javascript:">{{c2.categoryName}}</a> -->
-                    <!-- <router-link :to="{path: '/search', query: {categoryName: c2.categoryName, category2Id: c2.categoryId}}">{{c2.categoryName}}</router-link> -->
-                  </dt>
-                  <dd>
-                    <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+              -->
+              <h3>
+                <a href="javascript:" 
+                  :data-categoryName="c1.categoryName"
+                  :data-category1Id="c1.categoryId"
+                >{{c1.categoryName}}</a>
+                <!-- <router-link :to="{path: '/search', query: {categoryName: c1.categoryName, category1Id: c1.categoryId}}">{{c1.categoryName}}</router-link> -->
+              </h3>
+              <div class="item-list clearfix">
+                <div class="subitem">
+                  <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                    <dt>
                       <a href="javascript:" 
-                        :data-categoryName="c3.categoryName"
-                        :data-category3Id="c3.categoryId"
-                      >{{c3.categoryName}}</a>
-                      <!-- <a href="javascript:">{{c3.categoryName}}</a> -->
-                      <!-- <router-link :to="{path: '/search', query: {categoryName: c3.categoryName, category3Id: c3.categoryId}}">{{c3.categoryName}}</router-link> -->
-                    </em>
-                  </dd>
-                </dl>
+                        :data-categoryName="c2.categoryName"
+                        :data-category2Id="c2.categoryId"
+                      >{{c2.categoryName}}</a>
+                      <!-- <a href="javascript:">{{c2.categoryName}}</a> -->
+                      <!-- <router-link :to="{path: '/search', query: {categoryName: c2.categoryName, category2Id: c2.categoryId}}">{{c2.categoryName}}</router-link> -->
+                    </dt>
+                    <dd>
+                      <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+                        <a href="javascript:" 
+                          :data-categoryName="c3.categoryName"
+                          :data-category3Id="c3.categoryId"
+                        >{{c3.categoryName}}</a>
+                        <!-- <a href="javascript:">{{c3.categoryName}}</a> -->
+                        <!-- <router-link :to="{path: '/search', query: {categoryName: c3.categoryName, category3Id: c3.categoryId}}">{{c3.categoryName}}</router-link> -->
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -82,9 +87,6 @@ export default {
   },
 
   mounted () {
-    // 触发vuex中的getBaseCategoryList action调用
-    this.$store.dispatch('getBaseCategoryList')
-
     // 得到当前路由路径
     const path = this.$route.path
     // 如果不在首页指定隐藏一级分类列表
@@ -176,6 +178,9 @@ export default {
     },
 
     hideFirst () {
+      // 隐藏2/3级分类列表
+      this.currentIndex = -1
+
       // 只有不在首页时才隐藏
       if (this.$route.path!=='/') {
         this.isShowFirst=false

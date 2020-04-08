@@ -1,0 +1,7 @@
+{
+  "id": 1,
+  "name": "张三",
+  "age": 23,
+  "price": 13000,
+  "likes": ["basket", "foot"]
+}
