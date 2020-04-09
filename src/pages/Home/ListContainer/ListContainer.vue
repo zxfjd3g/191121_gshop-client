@@ -3,19 +3,10 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container">
+        <div class="swiper-container" ref="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/images/banner1.jpg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/banner2.jpg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/banner3.jpg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/banner4.jpg" alt="">
+            <div class="swiper-slide" v-for="banner in banners" :key="banner.id">
+              <img :src="banner.imgUrl" alt="banner">
             </div>
           </div>
           <!-- 如果需要分页器 -->
@@ -111,30 +102,67 @@
 
 <script>
   import Swiper from 'swiper'
-  import 'swiper/css/swiper.min.css'
-
-  
+  import { mapState } from 'vuex'
 
   export default {
     name: 'ListContainer',
 
     // 在页面初始显示后立即执行
     mounted () {
-      // 要求: 创建swiper对象必须要在轮播列表页面显示之后执行才可以  ==> 否则轮播效果有问题
-      new Swiper('.swiper-container', { // 配置对象
-        // direction: 'vertical', // 垂直切换选项   默认是水平轮播
-        loop: true, // 循环模式
+      console.log('mounted', this.banners.length)  // 为0, banner数据是异步获取的
+      /* setTimeout(() => {
+        // 要求: 创建swiper对象必须要在轮播列表页面显示之后执行才可以  ==> 否则轮播效果有问题
+        // new Swiper('.swiper-container', { // 有问题, 会匹配所有此类名元素
+        new Swiper(this.$refs.swiper, { // 可以, 只会匹配, 当前组件中的对应元素
+          // direction: 'vertical', // 垂直切换选项   默认是水平轮播
+          loop: true, // 循环模式
 
-        // 分页器
-        pagination: {
-          el: '.swiper-pagination',
-        },
+          // 分页器
+          pagination: {
+            el: '.swiper-pagination',
+          },
 
-        // 前进后退按钮
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }
+          // 前进后退按钮
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }
+        })
+      }, 1000) */
+    },
+
+    watch: {
+      // 监视banners  一般监视就可以
+      banners () { // 说明banners状态数据发了改变, 但界面还没有更新
+        /* 
+        数据绑定流程 ==> 更新状态数据  ==> 同步调用监视的回调函数 ==> 界面就会自动 `异步`更新
+        */
+        // vm.$nextTick( [callback] )
+        // 将回调延迟到下次 DOM 更新循环之后执行。$nextTick()在修改数据之后立即调用，然后等待 DOM 更新
+        this.$nextTick(() => {// 回调函数在界面更新之后执行
+          // 必须在轮播列表界面显示之后创建
+          new Swiper(this.$refs.swiper, { // 可以, 只会匹配, 当前组件中的对应元素
+            // direction: 'vertical', // 垂直切换选项   默认是水平轮播
+            loop: true, // 循环模式
+
+            // 分页器
+            pagination: {
+              el: '.swiper-pagination',
+            },
+
+            // 前进后退按钮
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }
+          })
+        })
+      }
+    },
+
+    computed: {
+      ...mapState({
+        banners: state => state.home.banners
       })
     }
   }

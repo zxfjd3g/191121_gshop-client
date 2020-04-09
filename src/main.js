@@ -2,6 +2,9 @@
 入口JS
 */
 import Vue from 'vue'
+import 'swiper/css/swiper.min.css'  // 引入swiper的css
+// import Swiper from 'swiper'  // 如果在此引入, 需要让组件对象可见
+
 import App from './App'
 import router from './router'
 import store from './store'

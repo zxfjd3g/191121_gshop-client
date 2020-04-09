@@ -31,6 +31,7 @@
     2). 在首页一直显示, 在搜索页面默认是隐藏的: 
         在mounted()中根据根据当前请求的路径判断, 如果是不是首页隐藏
         在mounseleve中  ==> 如果当前不是首页,隐藏一级列表
+        在mouseenter中  ==> 显示一级列表
 
 ### 优化请求执行的位置, 减少请求次数
     问题: 切换路由组件会发多次获取分类列表的请求?
@@ -42,6 +43,39 @@
     解决: 自己mock数据接口
 
 ### 设计json数据
+    json数据的组成
+        结构: 类型和名称  本身是不会显示在页面上
+        值: 就是可以显示在页面上的数据
+    mock数据与真实数据关系?
+        结构尽量一致, 值可以变
 
 ### 如何实现mock?
-    1). 使用mockjs来实现mock接口
+    使用mockjs库: Mock.mock(url, template)
+    定义针对mock接口的ajax封装: mockAjax.js
+    定义针对mock接口的接口请求: api/index.js
+    定义针对mock数据的vuex模块: store/modules/home.js
+    在组件中触发获取mock数据: this.$store.dispatch('getBanners')
+
+
+## 利用mock数据实现动态ListConter组件与Floor组件
+
+### 使用swiper库实现静态轮播图效果
+    下载swiper: npm install swiper -S
+    使用: 
+        引入包(js/css)
+        标签结构
+        创建Swiper对象: 必须在列表数据显示之后创建才正确
+    bug: 
+        问题: 创建的swiper会对其它组件界面中的swiper界面产生影响
+        原因: new Swiper('.swiper-container'),  类选择会匹配上页面中的所有此类名元素, 就会都产生效果
+        解决: 使用vue技术来定义swiper的根元素
+
+### 使用swiper库实现动态轮播图效果
+    动态获取数据并显示到轮播页面中
+    如果在mouted()中创建swiper对象, 轮播有问题
+        原因: banners数据是异步获取, 而mounted很早就执行了, 创建swiper对象是在列表数据显示之前
+        解决方案1: 定时器延迟一定时间执行  ==>此方案不可用
+            延迟的时间不太能确定, 因为请求返回数据的时间不确定
+        解决方案2: watch + $nextTick ==>此方案不可用
+            通过watch就能知道banners数据发生了改变 [] ==> [{}, {}]
+            通过$nextTick(callback)能知道界面因为这个数据发生改变而更新

@@ -17,6 +17,6 @@ export const reqBanners = () => mockAjax.get('/banners')
 export const reqFloors = () => mockAjax.get('/floors')
 
 // 测试接口请求函数
-/* reqBanners().then(result => {
+reqBanners().then(result => {
   console.log('result', result)
-}) */
+})
