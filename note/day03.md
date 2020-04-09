@@ -79,3 +79,28 @@
         解决方案2: watch + $nextTick ==>此方案不可用
             通过watch就能知道banners数据发生了改变 [] ==> [{}, {}]
             通过$nextTick(callback)能知道界面因为这个数据发生改变而更新
+        解决方案3: callback + $nextTick   后面合适时机再说
+        
+### 抽取可复用的轮播组件Carousel
+    将ListContainer中swiper的模板页面和JS部分拿过来
+    定义接收轮播数组数据: carouselList, 并显示
+    在ListContainer和Floor组件中使用Carousel: <Carousel :carouselList="array">
+
+    问题: 
+        为什么Foor组件中的轮播有问题? 
+            v-for遍历的如果是空数组, 不会渲染组件标签
+            floors开始是[] ==> 初始显示没有渲染Foor组件  ==> 没有渲染它内部的Carousel 
+                    ==> 没有创建Carousel对象
+            后面异步获取了foors数组([{}, {}]) ===> 渲染2个Floor 
+                    ==> 渲染2个它内部的Carousel ==> 创建Carousel对象 ===> 调用mounted(), 有数据的长为3
+                    没有更新的过程  ==> 不会执行watch的回调
+        为什么ListContainer中的没问题?
+            banners为空数组 ==> 渲染Carousel ===> 创建Carousel, 调用mounted, 没有数据(长度为0)
+            异步获取banners数组 ==> 更新渲染Carousel ===> 调用watch的回调函数
+        解决办法:
+            利用watch的immediate: true
+            在初始显示时就立即执行一次, 默认是false(只有数据改变才立即执行)
+        导致新的执行效率问题?
+            问题: ListContainer中的轮播的swiper对象多创建了
+            解决: 只有当数组中有数据才创建: if (this.carouselList.length===0) return
+
