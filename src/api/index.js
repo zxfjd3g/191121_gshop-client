@@ -17,6 +17,10 @@ export const reqBanners = () => mockAjax.get('/banners')
 export const reqFloors = () => mockAjax.get('/floors')
 
 // 测试接口请求函数
-reqBanners().then(result => {
+/* reqBanners().then(result => {
   console.log('result', result)
-})
+}) */
+
+// 请求搜索匹配的商品相关数据
+export const reqProductList = (searchParams) => ajax.post('/list', searchParams)
+// reqProductList({})

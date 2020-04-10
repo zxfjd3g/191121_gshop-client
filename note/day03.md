@@ -68,7 +68,7 @@
     bug: 
         问题: 创建的swiper会对其它组件界面中的swiper界面产生影响
         原因: new Swiper('.swiper-container'),  类选择会匹配上页面中的所有此类名元素, 就会都产生效果
-        解决: 使用vue技术来定义swiper的根元素
+        解决: 使用vue的ref技术来指定swiper的根元素
 
 ### 使用swiper库实现动态轮播图效果
     动态获取数据并显示到轮播页面中
@@ -79,7 +79,7 @@
         解决方案2: watch + $nextTick ==>此方案不可用
             通过watch就能知道banners数据发生了改变 [] ==> [{}, {}]
             通过$nextTick(callback)能知道界面因为这个数据发生改变而更新
-        解决方案3: callback + $nextTick   后面合适时机再说
+        // 解决方案3: callback + $nextTick   后面合适时机再说
         
 ### 抽取可复用的轮播组件Carousel
     将ListContainer中swiper的模板页面和JS部分拿过来
