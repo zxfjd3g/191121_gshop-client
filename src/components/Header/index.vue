@@ -50,6 +50,13 @@
       }
     },
 
+    mounted () {
+      // 通过全局总线绑定removeKeyword事件监听
+      this.$bus.$on('removeKeyword', () => {
+        this.keyword = ''  // 置空我们的搜索关键字
+      })
+    },
+
     methods: {
       toSearch () {
         /* 

@@ -17,6 +17,10 @@ Vue.component('TypeNav', TypeNav) // 全局使用<TypeNav/> <type-nav/>
 Vue.component('Carousel', Carousel) // 全局使用<Carousel/> <carousel/>
 
 new Vue({
+  beforeCreate () {
+    Vue.prototype.$bus = this  // 将当前vm作为事件总线保存到Vue原型对象 ==> 所有组件都可见
+  },
+
   // el: '#app'
   render: h => h(App),  // 将App组件对象渲染到页面上
   router, // 配置路由器(内部的路由才生效访问)
