@@ -11,10 +11,12 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-if="options.categoryName">
+              {{options.categoryName}}<i>×</i>
+            </li>
+            <li class="with-x" v-if="options.keyword">
+              {{options.keyword}}<i>×</i>
+            </li>
           </ul>
         </div>
 
@@ -166,6 +168,11 @@
          const {query, params} = to  // to代表当前路由对象
          const options = {
             ...this.options,
+            categoryName: '',    // 需要重置分类相关数据
+            category1Id: '',
+            category2Id: '',
+            category3Id: '',
+            
             ...query,
             ...params
           }

@@ -172,8 +172,19 @@ export default {
         } else if (category3id) {
           query.category3Id = category3id
         }
-        // 跳转路由, 并携带query参数
-        this.$router.push({path: '/search', query})
+        
+        // 得到当前路由路径     /  或者 /search 或者 /search/xxx
+        const {path, params} = this.$route.path
+
+        // 如果当前已经在搜索界面
+        if (path.indexOf('/search')===0) {
+          // 跳转到搜索, path为原本的路径(可能携带了params参数)
+          // this.$router.replace({path, query}) // 用replace()是为了后面能直接回退到home
+          this.$router.repalce({name: 'search', params, query})
+        } else { // 当前没在搜索界面
+          // 跳转路由, 并携带query参数
+          this.$router.push({path: '/search', query})
+        }
       }
     },
 
