@@ -66,7 +66,9 @@
               <dl v-for="(attr, index) in spuSaleAttrList" :key="attr.id">
                 <dt class="title">{{attr.saleAttrName}}</dt>
                 <dd changepirce="0" v-for="(value, index) in attr.spuSaleAttrValueList" 
-                  :key="value.id" :class="{active: value.isChecked==='1'}">{{value.saleAttrValueName}}</dd>
+                  :key="value.id" :class="{active: value.isChecked==='1'}" @click="selectValue(value, attr.spuSaleAttrValueList)">
+                  {{value.saleAttrValueName}}
+                </dd>
               </dl>
             </div>
             <div class="cartWrap">
@@ -343,6 +345,21 @@
 
     computed: {
       ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList'])
+    },
+
+    methods: {
+      /* 
+      选择某个属性值
+      */
+      selectValue (value, valueList) {
+        // 如果当前项没有选中才处理
+        if (value.isChecked!=='1') {
+          // 将所有的项都先指定为不选择
+          valueList.forEach(v => v.isChecked = '0')
+          // 选中当前的
+          value.isChecked = '1'
+        }
+      }
     },
     
     components: {

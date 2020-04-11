@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Header/>
+    <Header />
     
     <!-- 一级路由显示在此 -->
     <router-view></router-view>
