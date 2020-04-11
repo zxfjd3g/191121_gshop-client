@@ -141,7 +141,7 @@
           category3Id: '', // 三级分类ID
           categoryName: '', // 分类名称
           keyword: '', // 搜索关键字
-          trademark: '', // '品牌ID:品牌名称'
+          // trademark: '', // '品牌ID:品牌名称'
           order: '1:desc', // 排序方式 默认是综合降序   综合1,价格2 升序asc,降序desc  "2:desc"
           pageNo: 1, // 当前第几页
           pageSize: 5, // 每页最多显示多少条数据	
@@ -186,7 +186,6 @@
             category1Id: '',
             category2Id: '',
             category3Id: '',
-            
             ...query,
             ...params
           }
@@ -270,9 +269,10 @@
       */
       setTrademark (id, name) {
         // 更新options中的trademark
-        this.options.trademark = id + ':' + name
+        // this.options.trademark = id + ':' + name  // 不会触发界面更新
+        this.$set(this.options, 'trademark', id + ':' + name)
         // 重新获取商品列表
-        this.getProductList()
+        this.getProductList() 
       },
 
       /* 
@@ -334,7 +334,10 @@
       移除品牌条件
       */
       removeTrademark () {
-        this.options.trademark = ''
+        this.options.trademark = ''  // 如果trademark是响应式的, 重新赋值会触发界面更新
+        // delete this.options.trademark // delete 删除已有属性不会触发界面更新
+        // this.$delete(this.options, 'trademark')
+
         this.getProductList()
       }
     },
