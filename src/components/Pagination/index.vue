@@ -67,6 +67,63 @@
         return Math.ceil(total/pageSize) // 需要向上取整
       },
 
+
+      /* 
+      计算得到连续页码的start和end 
+          连续页码数: pageConfig.showPageNo   5
+          当前页码: currentPage    4       23456
+          总页码数: totalPages 10/5
+      */
+      startEnd2 () {
+        let start = 0
+        let end = 0
+
+        // 取出相关数据
+        // const { showPageNo } = this.pageConfig
+        // const {totalPages, currentPage} = this
+        const {totalPages, currentPage, pageConfig:{showPageNo}} = this // 多层级对象解构
+
+        // 计算后更新start和end
+        /* 
+        currentPage  showPageNo  totalPages
+          4             5             10     23456
+          2             5             10     123445
+          9             5             10     6789 10
+        */
+       // 计算start
+        start = currentPage - Math.floor(showPageNo/2)
+        // 如果start页码小于1, 就为1
+        if (start<1) {
+          start = 1
+        }
+
+        // 计算end
+        /* 
+        9             5             10     
+        start = 7  ===> 6
+        end =7 + 4 = 11  ==> end = 10
+
+        2             5               3
+        start = 1 
+        end = 3
+        start = -1 
+        */
+        end = start + showPageNo -1
+        // 如果end大于了总页码数
+        if (end > totalPages) {
+          // end值为总页码数
+          end = totalPages
+          // 修正start: 让start到end为showPageNo
+          start = end - showPageNo + 1
+          // 如果start小于1, 指定为1
+          if (start<1) {
+            start = 1
+          }
+        }
+        return {start, end}
+      },
+
+
       /* 
       要根据已有数据计算出连续页码的start和end
       */
@@ -116,6 +173,11 @@
             end = 10
           */
           start = end - showPageNo + 1   // 10 - 5 + 1
+
+          // 如果start小于1, 指定为1
+          if (start<1) {
+            start = 1
+          }
         }
 
         // 返回数据
