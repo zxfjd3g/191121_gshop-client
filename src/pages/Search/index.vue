@@ -92,43 +92,23 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          
+          <Pagination :pageConfig="{
+              total: productList.total,  // 总数据个数
+              showPageNo: 3,
+              pageNo: options.pageNo,
+              pageSize: options.pageSize
+            }"
+            @changeCurrentPage="changeCurrentPage"
+          />
         </div>
       </div>
     </div>
   </div>
-</template>
+</template>"
 
 <script>
-  import { mapGetters } from 'vuex'
+  import {mapState, mapGetters } from 'vuex'
   import SearchSelector from './SearchSelector/SearchSelector'
   export default {
     name: 'Search',
@@ -195,6 +175,9 @@
     },
 
     computed: {
+      ...mapState({
+        productList: state => state.search.productList
+      }),
       ...mapGetters(['goodsList'])
     },
 
@@ -205,6 +188,17 @@
       getProductList () {
         this.$store.dispatch('getProductList', this.options)
       },
+
+      /* 
+      当当前页码发生改变的监听回调
+      */
+      changeCurrentPage (currentPage) {
+        // 更新当前页码的条件数据
+        this.options.pageNo = currentPage
+        // 重新请求获取商品列表
+        this.getProductList()
+      },
+
 
       /* 
       判断指定排序标记的项是否选中
