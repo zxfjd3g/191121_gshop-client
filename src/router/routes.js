@@ -5,6 +5,7 @@ import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 import Register from '@/pages/Register'
 import Login from '@/pages/Login'
+import Detail from '@/pages/Detail'
 
 export default [
   {
@@ -18,6 +19,14 @@ export default [
     // 将query/params参数映射成props传递给路由组件
     props: (route) => ({ keyword1: route.params.keyword, keyword2: route.query.keyword })
   },
+
+  {
+    name: 'detail',
+    path: '/detail/:skuId',
+    component: Detail,
+  },
+
+
   {
     path: '/register',
     component: Register,
