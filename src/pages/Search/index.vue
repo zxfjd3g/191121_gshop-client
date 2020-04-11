@@ -99,7 +99,7 @@
               pageNo: options.pageNo,
               pageSize: options.pageSize
             }"
-            @changeCurrentPage="changeCurrentPage"
+            @changeCurrentPage="getProductList"
           />
         </div>
       </div>
@@ -183,21 +183,22 @@
 
     methods: {
       /* 
-      异步搜索商品列表
+      根据指定页码(默认值为1)异步搜索商品列表
       */
-      getProductList () {
+      getProductList (pageNo=1) {
+        this.options.pageNo = pageNo
         this.$store.dispatch('getProductList', this.options)
       },
 
       /* 
       当当前页码发生改变的监听回调
       */
-      changeCurrentPage (currentPage) {
-        // 更新当前页码的条件数据
-        this.options.pageNo = currentPage
-        // 重新请求获取商品列表
-        this.getProductList()
-      },
+      // changeCurrentPage (currentPage) {
+      //   // 更新当前页码的条件数据
+      //   // this.options.pageNo = currentPage
+      //   // 重新请求获取商品列表
+      //   this.getProductList(currentPage)
+      // },
 
 
       /* 

@@ -6,7 +6,7 @@
 
 ### 使用已定义好的分页组件
 
-### 设计通用组件的基本思路  (面试题)
+### 设计通用组件的基本思路  (面试题, 非常重要)
     基本的界面布局
     设计内部状态数据 : 
         currentPage: 当前页码
@@ -24,3 +24,5 @@
         this.currentPage = currentPage
         // 分发自定义事件
         this.$emit('changeCurrentPage', currentPage)
+    当外部组件传入的数据发生改变时, 内部数据可能也需要变化
+        使用watch来监视外部数据的变化 ==> 同步修改内部数据

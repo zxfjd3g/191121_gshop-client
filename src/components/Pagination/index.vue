@@ -1,6 +1,6 @@
 <template>
   <!--分页组件-->
-  <div class="pagination">
+  <div class="pagination" v-if="pageConfig.total>0">
     <!--上一页-->
     <button :disabled="currentPage===1" @click="changeCurrentPage(currentPage-1)">上一页</button>
     <!-- 第1页 -->
@@ -43,6 +43,7 @@
       }
     },
 
+
     data () {
       // 在data中可以读取props和Vue原型对象上的属性
       console.log('----', this.pageConfig, this.$bus)
@@ -74,7 +75,7 @@
           当前页码: currentPage    4       23456
           总页码数: totalPages 10/5
       */
-      startEnd2 () {
+      startEnd () {
         let start = 0
         let end = 0
 
@@ -127,7 +128,7 @@
       /* 
       要根据已有数据计算出连续页码的start和end
       */
-      startEnd () {
+      startEnd2 () {
         // 得到已有依赖数据
         // 当前页码 / 连续数码数 / 总页码数
         const currentPage = this.currentPage
@@ -184,6 +185,16 @@
         return {start, end}
       }
     },
+
+    watch: {
+      /*
+      当接收的pageConfig中的pageNo发生改变调用 
+       */
+      'pageConfig.pageNo' (value) {
+        // 将当前页码指定为外部传入的值
+        this.currentPage = value
+      }
+    },
     
     methods: {
 
@@ -191,7 +202,10 @@
       将当前页码改为指定页码
       */
       changeCurrentPage (page) {
+        // 修改当前页码
         this.currentPage = page
+        // 通知外部父组件
+        this.$emit('changeCurrentPage', page)
       }
     },
 
