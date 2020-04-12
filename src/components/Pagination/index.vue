@@ -46,9 +46,9 @@
 
     data () {
       // 在data中可以读取props和Vue原型对象上的属性
-      console.log('----', this.pageConfig, this.$bus)
+      // console.log('----', this.pageConfig, this.$bus)
       // 在data()中不可以直接读取data对象中的数据
-      console.log('++++', this.currentPage)
+      // console.log('++++', this.currentPage)
 
       return {
         currentPage: this.pageConfig.pageNo  // 当前页码
@@ -210,10 +210,10 @@
     },
 
     beforeCreate () { // beforeCreate()在data()之前执行
-      console.log('beforeCreate()', this.currentPage) // undefined
+      // console.log('beforeCreate()', this.currentPage) // undefined
     },
     created () { // created()在data()之后执行
-      console.log('created()', this.currentPage) // 有值
+      // console.log('created()', this.currentPage) // 有值
     }
   }
 </script>
