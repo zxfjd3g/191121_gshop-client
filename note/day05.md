@@ -5,6 +5,14 @@
 ## 自定义通用的分页组件
 
 ### 使用已定义好的分页组件
+    <Pagination :pageConfig="{
+            total: productList.total,  // 总数据个数
+            showPageNo: 3,
+            pageNo: options.pageNo,
+            pageSize: options.pageSize
+        }"
+        @changeCurrentPage="getProductList"
+    />
 
 ### 设计通用组件的基本思路  (面试题, 非常重要)
     基本的界面布局
@@ -26,3 +34,18 @@
         this.$emit('changeCurrentPage', currentPage)
     当外部组件传入的数据发生改变时, 内部数据可能也需要变化
         使用watch来监视外部数据的变化 ==> 同步修改内部数据
+
+### 实现
+    使用vue相关技术:
+        data / props / computed
+        绑定事件监听 / methods
+        watch / 分发自定义事件
+    难点:
+        计算: 总页数totalPages / 连续页码的start和end
+        连续页码的显示: v-for + v-if  ===> v-for的优先级最高, v-if在遍历过程中执行多次
+
+## 商品详情Detail路由界面
+
+### ajax + vuex
+
+### 动态显示商品部分信息
