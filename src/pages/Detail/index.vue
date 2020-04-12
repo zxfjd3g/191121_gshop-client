@@ -65,8 +65,12 @@
               <div class="choosed"></div>
               <dl v-for="(attr, index) in spuSaleAttrList" :key="attr.id">
                 <dt class="title">{{attr.saleAttrName}}</dt>
-                <dd changepirce="0" v-for="(value, index) in attr.spuSaleAttrValueList" 
-                  :key="value.id" :class="{active: value.isChecked==='1'}" @click="selectValue(value, attr.spuSaleAttrValueList)">
+                <dd 
+                  changepirce="0" 
+                  v-for="(value, index) in attr.spuSaleAttrValueList" 
+                  :key="value.id" :class="{active: value.isChecked==='1'}" 
+                  @click="selectValue(value, attr.spuSaleAttrValueList)"
+                >
                   {{value.saleAttrValueName}}
                 </dd>
               </dl>
