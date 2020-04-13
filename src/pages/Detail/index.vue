@@ -16,9 +16,12 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom 
+            v-if="skuImageList.length>0"
+            :imgUrl="skuImageList[currentImgIndex].imgUrl" 
+            :bigImgUrl="skuImageList[currentImgIndex].imgUrl"/>
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList @changeCurrentIndex="changeCurrentIndex"/>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -340,6 +343,12 @@
   export default {
     name: 'Detail',
 
+    data () {
+      return {
+        currentImgIndex: 0
+      }
+    },
+
     mounted () {
       // 取出skuId的params参数
       const skuId = this.$route.params.skuId
@@ -348,7 +357,7 @@
     },
 
     computed: {
-      ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList'])
+      ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList', 'skuImageList'])
     },
 
     methods: {
@@ -363,6 +372,14 @@
           // 选中当前的
           value.isChecked = '1'
         }
+      },
+
+      /* 
+      changeCurrentIndex事件的回调函数
+       */
+      changeCurrentIndex (index) {
+        // 更新当前的currentImgIndex
+        this.currentImgIndex = index
       }
     },
     

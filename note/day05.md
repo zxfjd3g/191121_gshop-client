@@ -7,9 +7,9 @@
 ### 使用已定义好的分页组件
     <Pagination :pageConfig="{
             total: productList.total,  // 总数据个数
-            showPageNo: 3,
-            pageNo: options.pageNo,
-            pageSize: options.pageSize
+            showPageNo: 3,   // 连续页码
+            pageNo: options.pageNo, // 当前第几页
+            pageSize: options.pageSize // 每页最多几条数据
         }"
         @changeCurrentPage="getProductList"
     />
@@ -42,10 +42,12 @@
         watch / 分发自定义事件
     难点:
         计算: 总页数totalPages / 连续页码的start和end
-        连续页码的显示: v-for + v-if  ===> v-for的优先级最高, v-if在遍历过程中执行多次
+        连续页码的显示: v-for + v-if  ===> v-for的优先级最高, v-if在遍历过程中执行多次    面试题
 
 ## 商品详情Detail路由界面
 
 ### ajax + vuex
 
 ### 动态显示商品部分信息
+    dispatch()
+    mapState() / mapGetters()
