@@ -1,13 +1,29 @@
 /* 
 管理购物车模块相关数据的vuex模块
 */
-import { reqAddToCart } from "@/api"
+import { reqAddToCart, reqCartList, reqCheckCartItem, reqDeleteCartItem } from "@/api"
 
 const state = {
   cartList: [], // 所有购物车列表数据
 }
-const mutations = {}
+const mutations = {
+  RECEIVE_CART_LIST (state, cartList) {
+    state.cartList = cartList
+  }
+
+}
 const actions = {
+
+  /* 
+  获取购物车数据列表的异步action
+  */
+  async getCartList ({commit}) {
+    const result = await reqCartList()
+    if (result.code===200) {
+      const cartList = result.data
+      commit('RECEIVE_CART_LIST', cartList)
+    }
+  },
 
   /* 
   添加到购物车的异步action

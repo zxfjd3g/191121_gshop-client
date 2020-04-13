@@ -399,7 +399,10 @@
         const query = {skuId: this.skuInfo.id, skuNum: this.skuNum}
         // 如果成功了
         if (!errorMsg) {
-          console.log('++++++')
+          
+          // 在跳转前将skuInfo保存到sessionStorage (key=value, value只能是字符串)
+          window.sessionStorage.setItem('SKU_INFO_KEY', JSON.stringify(this.skuInfo))
+
           this.$router.push({path: '/addcartsuccess', query})
         } else {
           alert(errorMsg)
