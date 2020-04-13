@@ -28,3 +28,6 @@ export const reqProductList = (searchParams) => ajax.post('/list', searchParams)
 // 详情Detail接口
 // 获取商品详情信息
 export const reqDetailInfo = (skuId) => ajax.get(`/item/${skuId}`)
+
+// 添加到购物车
+export const reqAddToCart = (skuId, skuNum) => ajax.post(`/cart/addToCart/${skuId}/${skuNum}`)
