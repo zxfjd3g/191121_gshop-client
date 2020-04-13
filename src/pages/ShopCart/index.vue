@@ -43,7 +43,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox">
+        <input class="chooseAll" type="checkbox" v-model="isAllChecked">
         <span>全选</span>
       </div>
       <div class="option">
@@ -53,10 +53,10 @@
       </div>
       <div class="money-box">
         <div class="chosed">已选择
-          <span>0</span>件商品</div>
+          <span>{{totalCount}}</span>件商品</div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
-          <i class="summoney">0</i>
+          <i class="summoney">{{totalPrice}}</i>
         </div>
         <div class="sumbtn">
           <a class="sum-btn" href="###" target="_blank">结算</a>
@@ -67,13 +67,14 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   export default {
     name: 'ShopCart',
     computed: {
       ...mapState({
         cartList: state => state.shopCart.cartList
-      })
+      }),
+      ...mapGetters(['totalCount', 'totalPrice', 'isAllChecked'])
     },
     mounted () {
       this.$store.dispatch('getCartList')
