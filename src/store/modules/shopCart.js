@@ -14,6 +14,17 @@ const mutations = {
 }
 const actions = {
 
+  async deleteCartItem ({commit}, skuId) {
+    const result = await reqDeleteCartItem(skuId)
+    /* if (result.code===200) {
+      // 成功了, 告诉组件重新获取购物车列表数据
+
+    } else {// 失败了, 告诉组件显示失败的提示
+
+    } */
+    return result.code===200 ? '' : result.message || '删除购物项失败'
+  }, 
+
   /* 
   获取购物车数据列表的异步action
   */

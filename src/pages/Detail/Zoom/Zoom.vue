@@ -1,7 +1,10 @@
 <template>
   <div class="spec-preview">
+    
     <img :src="imgUrl" />
+    
     <div class="event" @mousemove="handleMove" ref="event"></div>
+    
     <div class="big">
       <img :src="bigImgUrl" ref="bigImg"/>
     </div>

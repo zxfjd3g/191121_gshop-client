@@ -34,7 +34,7 @@
             <span class="sum">{{item.skuNum * item.cartPrice}}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a href="javascript:" class="sindelet" @click="deleteCartItem(item.skuId)">删除</a>
             <br>
             <a href="#none">移到收藏</a>
           </li>
@@ -78,6 +78,19 @@
     },
     mounted () {
       this.$store.dispatch('getCartList')
+    },
+
+    methods: {
+      async deleteCartItem (skuId) {
+        if(window.confirm('确定删除此购物项吗?')) {
+          const errorMsg = await this.$store.dispatch('deleteCartItem', skuId)
+          if (errorMsg) {
+            alert(errorMsg)
+          } else { // 删除成功, 重新获取列表显示
+            this.$store.dispatch('getCartList')
+          }
+        }
+      }
     }
   }
 </script>
