@@ -18,8 +18,10 @@
               @change="checkCartItem(item, $event)">
           </li>
           <li class="cart-list-con2">
-            <img :src="item.imgUrl">
-            <div class="item-msg">{{item.skuName}}</div>
+            <router-link :to="{name: 'detail', params: {skuId: item.skuId}}">
+              <img :src="item.imgUrl">
+              <div class="item-msg">{{item.skuName}}</div>
+            </router-link>
           </li>
           <li class="cart-list-con3">
             <div class="item-txt">语音升级款</div>
