@@ -47,7 +47,7 @@
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a href="javascrpt:" @click="deleteCartItems">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -74,21 +74,62 @@
       ...mapState({
         cartList: state => state.shopCart.cartList
       }),
-      ...mapGetters(['totalCount', 'totalPrice', 'isAllChecked'])
+      ...mapGetters(['totalCount', 'totalPrice', 'isAllChecked', 'selectedItems'])
     },
     mounted () {
       this.$store.dispatch('getCartList')
     },
 
     methods: {
+      /* 
+      删除指定的一个购物项
+      */
       async deleteCartItem (skuId) {
         if(window.confirm('确定删除此购物项吗?')) {
-          const errorMsg = await this.$store.dispatch('deleteCartItem', skuId)
+          /* const errorMsg = await this.$store.dispatch('deleteCartItem', skuId)
           if (errorMsg) {
             alert(errorMsg)
           } else { // 删除成功, 重新获取列表显示
             this.$store.dispatch('getCartList')
+          } */
+          try {
+            await this.$store.dispatch('deleteCartItem2', skuId)
+            // 成功了
+            this.$store.dispatch('getCartList')
+          } catch (error) {
+            alert(error.message)
           }
+        }
+      },
+
+      /* 
+      删除所有选中的购物项
+      */
+      deleteCartItems () {
+        // 得到所有选中购物项
+        const {selectedItems} = this
+        // 如果没有一个选中的, 不用做处理
+        if (selectedItems.length===0) return
+
+        if(window.confirm('确定删除此购物项吗?')) {
+          const promises = []
+          // 删除selectedItems所有的购物项
+          selectedItems.forEach(item => {
+            // 删除item购物项
+            const promise = this.$store.dispatch('deleteCartItem2', item.skuId)
+            // 保存返回的promise
+            promises.push(promise)
+          })
+
+          // 如果都成功了, 才去重新获取新的购物车数据
+          Promise.all(promises).then(
+            values => { // 都成功了
+              this.$store.dispatch('getCartList')
+            },
+            error => {
+              alert(error.message || '删除购物项失败')
+            }
+          )
         }
       }
     }
