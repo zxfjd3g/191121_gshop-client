@@ -9,9 +9,6 @@ import mockAjax from './mockAjax'
 
 // 获取三级分类列表  /api/product/getBaseCategoryList
 export const reqBaseCategoryList = () => ajax('/product/getBaseCategoryList')
-// 登陆  /api/user/passport/login
-export const reqLogin = (mobile, password) => ajax.post('/user/passport/login', {mobile, password}) 
-// export const reqLogin = ({mobile, password}) => ajax.post('/user/passport/login', {mobile, password}) 
 
 // 请求mock的接口, 获取轮播列表数据
 export const reqBanners = () => mockAjax.get('/banners')
@@ -41,3 +38,9 @@ export const reqCheckCartItem = (skuId, isChecked) => ajax.get(`/cart/checkCart/
 // 删除购物车商品 /api/cart/deleteCart/{skuId}
 export const reqDeleteCartItem = (skuId) => ajax.delete(`/cart/deleteCart/${skuId}`)
 
+// 登陆  /api/user/passport/login
+export const reqLogin = (mobile, password) => ajax.post('/user/passport/login', {mobile, password}) 
+// 退出登陆 /user/passport/logout
+export const reqLogout = ()=>ajax.get('/user/passport/logout')  // 后台需要删除对应的数据
+// 注册Register接口
+export const reqRegister = (userInfo) => ajax.post('/user/passport/register', userInfo)
