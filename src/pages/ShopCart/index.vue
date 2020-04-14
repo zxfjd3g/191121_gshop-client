@@ -28,9 +28,13 @@
             <span class="price">{{item.cartPrice}}</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
-            <input autocomplete="off" type="text" class="itxt" :value="item.skuNum">
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a href="javascript:void(0)" class="mins" 
+              @click="changeItemCount(item, -1)">-</a>
+            <input autocomplete="off" type="text" class="itxt" 
+              :value="item.skuNum" 
+              @change="changeItemCount(item, $event.target.value*1 - item.skuNum)">
+            <a href="javascript:void(0)" class="plus"
+              @click="changeItemCount(item, 1)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{item.skuNum * item.cartPrice}}</span>
@@ -45,7 +49,8 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked" @change="checkAll">
+        <input class="chooseAll" type="checkbox" 
+          :checked="isAllChecked" @change="checkAll">
         <span>全选</span>
       </div>
       <div class="option">
@@ -85,17 +90,43 @@
     methods: {
 
       /* 
+      修改某个购物项的数量
+      */
+      async changeItemCount (item, changeNum) {
+        const {skuId} = item
+        // 最终的数量必须大于0
+        if (item.skuNum + changeNum>0) {
+          // 分发修改购物项数量的异步action, 并根据结果做相应处理
+          // const errorMsg = await this.$store.dispatch('addToCart2', {skuId, skuNum: changeNum})
+          // if (errorMsg) { // 失败了
+          //   alert(errorMsg)
+          // } else { // 成功了
+          //   this.$store.dispatch('getCartList')
+          // }
+
+          // 只需要分发action就可以, action内部把后续的工作都处理了
+          this.$store.dispatch('addToCart3', {skuId, skuNum: changeNum})
+        } 
+        
+      },
+
+      /* 
       全选/全不选所有购物项
       */
       async checkAll (event) {
         // alert(event.target.checked)
         const isChecked = event.target.checked * 1 // 1/0
         // 将所有购物项都更新为isChecked
-        const promises = this.cartList.reduce((pre, item) => {
-          const promise = this.$store.dispatch('checkCartItem', {skuId: item.skuId, isChecked})
-          pre.push(promise)
-          return pre
-        }, [])
+        // const promises = this.cartList.reduce((pre, item) => {
+        //   const promise = this.$store.dispatch('checkCartItem', {skuId: item.skuId, isChecked})
+        //   pre.push(promise)
+        //   return pre
+        // }, [])
+
+        const promises = this.cartList.map(item => {
+          return this.$store.dispatch('checkCartItem', {skuId: item.skuId, isChecked})
+        })
+
         try {
           await Promise.all(promises)
           // 全部成功了, 重新获取购物车列表

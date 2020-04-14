@@ -81,6 +81,19 @@ const actions = {
   async addToCart2 ({commit}, {skuId, skuNum}) {
     const result = await reqAddToCart(skuId, skuNum)
     return result.code===200 ? '' : (result.message || '添加购物车失败')
+  },
+
+  async addToCart3 ({dispatch}, {skuId, skuNum}) {
+    const result = await reqAddToCart(skuId, skuNum)
+    if (result.code===200) { // 成功了
+      // 分发请求获取最新购物车列表的action
+      dispatch('getCartList')
+    } else { // 失败了
+      // 可以直接提示
+      alert(result.message || '添加购物车失败')
+      // 选择让组件处理错误提示
+      // return (result.message || '添加购物车失败')
+    }
   }
 }
 const getters = {

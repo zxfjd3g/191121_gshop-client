@@ -31,7 +31,8 @@ export const reqProductList = (searchParams) => ajax.post('/list', searchParams)
 // 获取商品详情信息
 export const reqDetailInfo = (skuId) => ajax.get(`/item/${skuId}`)
 
-// 添加到购物车
+// 添加到购物车(修改购物项数量)
+// skuNum指定为改变的数量, 如果是减少就是负数
 export const reqAddToCart = (skuId, skuNum) => ajax.post(`/cart/addToCart/${skuId}/${skuNum}`)
 // 获取购物车数据列表
 export const reqCartList = () => ajax.get('/cart/cartList')
