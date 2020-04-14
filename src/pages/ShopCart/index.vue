@@ -13,7 +13,9 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="(item, index) in cartList" :key="item.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" v-model="item.isChecked">
+            <!-- <input type="checkbox" name="chk_list" v-model="item.isChecked"> -->
+            <input type="checkbox" name="chk_list" :checked="item.isChecked"
+              @change="checkCartItem(item, $event)">
           </li>
           <li class="cart-list-con2">
             <img :src="item.imgUrl">
@@ -27,7 +29,7 @@
           </li>
           <li class="cart-list-con5">
             <a href="javascript:void(0)" class="mins">-</a>
-            <input autocomplete="off" type="text" class="itxt" v-model="item.skuNum">
+            <input autocomplete="off" type="text" class="itxt" :value="item.skuNum">
             <a href="javascript:void(0)" class="plus">+</a>
           </li>
           <li class="cart-list-con6">
@@ -43,7 +45,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" v-model="isAllChecked">
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked" @change="checkAll">
         <span>全选</span>
       </div>
       <div class="option">
@@ -81,6 +83,48 @@
     },
 
     methods: {
+
+      /* 
+      全选/全不选所有购物项
+      */
+      async checkAll (event) {
+        // alert(event.target.checked)
+        const isChecked = event.target.checked * 1 // 1/0
+        // 将所有购物项都更新为isChecked
+        const promises = this.cartList.reduce((pre, item) => {
+          const promise = this.$store.dispatch('checkCartItem', {skuId: item.skuId, isChecked})
+          pre.push(promise)
+          return pre
+        }, [])
+        try {
+          await Promise.all(promises)
+          // 全部成功了, 重新获取购物车列表
+          this.$store.dispatch('getCartList')
+        } catch (error) {
+          alert(error.message)
+        }
+      },
+
+      /* 
+      改变某个购物项的选中状态的监视回调
+      */
+      checkCartItem (item, event) {
+        // alert(event.target.checked)
+        // 得到新的勾选状态
+        const isChecked = item.isChecked===1 ? 0 : 1
+        // const isChecked = event.target.checked  // 也可以
+        const {skuId} = item
+        this.$store.dispatch('checkCartItem', {skuId, isChecked}).then(
+          () => { // 成功了
+            // 重新获取列表显示
+            this.$store.dispatch('getCartList')
+          },
+          error => { // 失败了
+            alert(error.message)
+          }
+        )
+      },
+
       /* 
       删除指定的一个购物项
       */
@@ -96,6 +140,7 @@
             await this.$store.dispatch('deleteCartItem2', skuId)
             // 成功了
             this.$store.dispatch('getCartList')
+            //....
           } catch (error) {
             alert(error.message)
           }

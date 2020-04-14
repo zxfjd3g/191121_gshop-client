@@ -15,6 +15,16 @@ const mutations = {
 const actions = {
 
   /* 
+  设置购物项的选中状态
+  */
+ async checkCartItem ({commit}, {skuId, isChecked}) {
+   const result = await reqCheckCartItem(skuId, isChecked)
+   if (result.code!==200) {
+     throw new Error('勾选购物项失败')
+   }
+ },
+
+  /* 
   删除某个购物项的异步action
   */
   async deleteCartItem ({commit}, skuId) {
