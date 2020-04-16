@@ -8,6 +8,12 @@ import Login from '@/pages/Login'
 import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
+import Trade from '@/pages/Trade'
+import Pay from '@/pages/Pay'
+import PaySuccess from '@/pages/PaySuccess'
+import Center from '@/pages/Center'
+import MyOrder from '@/pages/Center/MyOrder'
+import GroupBuy from '@/pages/Center/GroupBuy'
 
 export default [
   {
@@ -51,5 +57,43 @@ export default [
     meta: {
       isHideFooter: true, // 标识footer是否隐藏
     }
+  },
+
+  {
+    path: '/trade',
+    component: Trade,
+  },
+
+  {
+    path: '/pay',
+    component: Pay,
+    // 将query参数映射成路由组件的props
+    props: route => ({orderId: route.query.orderId})
+  },
+
+  {
+    path: '/paysuccess',
+    component: PaySuccess,
+  },
+  {
+    path: '/center',
+    component: Center,
+    children: [ // 配置Center的子路由
+      {
+        path: '/center/myorder',
+        component: MyOrder,
+      },
+
+      {
+        path: 'groupbuy', // 简写
+        component: GroupBuy,
+      },
+
+      { // 配置一个自动重定向的路由
+        // path: '/center',
+        path: '',
+        redirect: '/center/myorder'
+      }
+    ]
   },
 ]
