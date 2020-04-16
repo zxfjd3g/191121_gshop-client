@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import store from '@/store'   // 在组件中不需要引入: this.$store
 
 
 /* 
@@ -56,20 +57,44 @@ from: 当前的路由route对象
 next: 用来控制路由跳转的函数
   next(): 不传参数, 代表放行
   next(path): 传入路径, 代表强制跳转到指定path的路由
-  不选择next(): 代表不放行 (没有跳转的效果, 看不到目标界面)
+  不调用next(): 代表不放行 (没有跳转的效果, 看不到目标界面)
 
 Login ==> Register
 from: 代表Login的路由信息对象
 to: 代表Register的路由信息对象
 */
+
+/* 
+功能a.只有登陆了, 才能查看交易/支付/个人中心界面
+*/
+
+const checkPaths = ['/trade', '/pay', '/center']  // 这里面所有的子路径也需要检查
 router.beforeEach((to, from, next) => {
-  // debugger
-  console.log('beforeEach', to.path, from .path)
-  if (to.path !== '/login' ) { // 如果请求的不是login就跳转到login
-    next('/login')
-  } else { // 请求的login
-    next()  // 放行
+  // 要跳转的目标路径
+  const targetPath = to.path  // /center/myorder
+  // 如果targetPath在checkPaths中, 那就需要检查
+  // if (checkPaths.indexOf(targetPath) !== -1) { // /center/myorder 就不会检查
+  // 如果targetPath是checkPaths中的某个路径或者其子路由路径  /center/myorder也会检查
+
+  // const targetPath2 = '/center/myorder'
+  // // 在checkPaths看能不能找到一个与targetPath2匹配的路径
+  // const result = checkPaths.find(item => targetPath2.indexOf(item)===0)
+  // if (result) {
+  //   // 需要检查
+  // }
+  if (checkPaths.find(path => targetPath.indexOf(path)===0)) { // 需要进行登陆检查
+    // 如果已经登陆, 放行
+    if (store.state.user.userInfo.name) {
+      next()
+    } else {
+      // 如果没有, 跳转到登陆界面
+      next('/login?redirect=' + targetPath)   // 同时需要使用query参数将目标路径携带给Login
+    }
+  } else {
+  // 否则不需要检查, 直接放行
+    next()
   }
+  
 })
 
 

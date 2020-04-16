@@ -30,14 +30,16 @@ ajax.interceptors.request.use((config) => {
   // 显示进度条
   NProgress.start()
 
-  /* 5. 所有请求都要携带userTempId的请求头 */
-  config.headers['userTempId'] = store.state.user.userTempId
 
   /* 6. 如果有了token, 请求都自动携带token */
   const token = store.state.user.userInfo.token
   if (token) {
     config.headers['token'] = token
-  }
+  } 
+
+  /* 5. 所有请求都要携带userTempId的请求头 */
+  config.headers['userTempId'] = store.state.user.userTempId
+  
 
   // 必须返回config
   return config
