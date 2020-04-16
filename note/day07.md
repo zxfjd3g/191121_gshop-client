@@ -33,7 +33,7 @@
 
 ### 修改某个购物项的数量
     区别<input type="text">的change与input监听
-        change事件: 输入框失去焦点才触发
+        change事件: 输入框失去焦点才触发     input事件监听 ===>输入改变时触发
         input事件: 输入发生改变时触发
     action函数的参数: changeItemNum({commit, state, dispatch}, data) {}
         commit: 执行触发mutation调用
