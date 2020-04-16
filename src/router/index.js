@@ -31,8 +31,8 @@ VueRouter.prototype.replace = function (location, onComplete, onAbort) {
 // 声明使用vue的插件
 Vue.use(VueRouter)
 
-// 向外暴露一个路由器对象
-export default new VueRouter({
+// 创建路由器对象 
+const router = new VueRouter({
   // mode: 'hash', // 路由路径带#号
   mode: 'history', // 路由路径不带#号
   
@@ -47,4 +47,32 @@ export default new VueRouter({
     }
   }
 })
+
+// 添加全局前置守卫
+/* 
+进行路由跳转前的回调函数
+to: 目标的路由route对象
+from: 当前的路由route对象
+next: 用来控制路由跳转的函数
+  next(): 不传参数, 代表放行
+  next(path): 传入路径, 代表强制跳转到指定path的路由
+  不选择next(): 代表不放行 (没有跳转的效果, 看不到目标界面)
+
+Login ==> Register
+from: 代表Login的路由信息对象
+to: 代表Register的路由信息对象
+*/
+router.beforeEach((to, from, next) => {
+  // debugger
+  console.log('beforeEach', to.path, from .path)
+  if (to.path !== '/login' ) { // 如果请求的不是login就跳转到login
+    next('/login')
+  } else { // 请求的login
+    next()  // 放行
+  }
+})
+
+
+// 向外暴露一个路由器对象
+export default router
 
