@@ -38,6 +38,7 @@
                 <a href="#" class="service">{{item.orderPrice}}</a>
               </div>
             </td>
+            
             <template v-if="index===0">
               <td :rowspan="order.orderDetailList.length" width="8%" class="center">{{order.consignee}}</td>
               <td :rowspan="order.orderDetailList.length" width="13%" class="center">
