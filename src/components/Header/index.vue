@@ -76,6 +76,8 @@
       async logout () {
         try {
           await this.$store.dispatch('logout')
+          // 退出登陆后, 自动跳转到首页
+          this.$router.replace('/')
         } catch (error) {
           alert(error.message)
         }

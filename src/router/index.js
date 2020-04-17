@@ -70,6 +70,7 @@ to: 代表Register的路由信息对象
 
 const checkPaths = ['/trade', '/pay', '/center']  // 这里面所有的子路径也需要检查
 router.beforeEach((to, from, next) => {
+  console.log('-----', to.path)
   // 要跳转的目标路径
   const targetPath = to.path  // /center/myorder
   // 如果targetPath在checkPaths中, 那就需要检查

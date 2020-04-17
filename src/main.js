@@ -12,6 +12,10 @@ import TypeNav from './components/TypeNav'
 import Carousel from './components/Carousel'
 import Pagination from './components/Pagination'
 import './mock/mockServer' // 加载mock接口的主模块
+import * as API from './api'  // 引入包含所有接口请求函数方法的对象
+
+// 将API对象挂载到Vue原型对象上
+Vue.prototype.$API = API  // 所有的组件中都可以通过this.$API来访问
 
 // 注册全局组件
 Vue.component('TypeNav', TypeNav) // 全局使用<TypeNav/> <type-nav/>
