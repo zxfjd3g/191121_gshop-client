@@ -56,6 +56,32 @@ const actions = {
   },
 
   /* 
+  context对象:
+    {
+      state,      // 等同于 `store.state`，若在模块中则为局部状态
+      rootState,  // 等同于 `store.state`，只存在于模块中
+      commit,     // 等同于 `store.commit`
+      dispatch,   // 等同于 `store.dispatch`
+      getters,    // 等同于 `store.getters`
+      rootGetters // 等同于 `store.getters`，只存在于模块中
+    }
+  */
+
+  async deleteCartItems ({dispatch, getters}) {
+    const promises = []
+    // 删除selectedItems所有的购物项
+    getters.selectedItems.forEach(item => {
+      // 删除item购物项
+      const promise = dispatch('deleteCartItem2', item.skuId)
+      // 保存返回的promise
+      promises.push(promise)
+    })
+
+    // 如果都成功了, 才去重新获取新的购物车数据
+    return Promise.all(promises)
+  },
+
+  /* 
   获取购物车数据列表的异步action
   */
   async getCartList ({commit}) {

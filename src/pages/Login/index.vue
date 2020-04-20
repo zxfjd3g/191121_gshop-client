@@ -54,9 +54,9 @@
         <li>联系客服</li>
         <li>商家入驻</li>
         <li>营销中心</li>
-        <li>手机尚品汇</li>
+        <li>手机谷粒商城</li>
         <li>销售联盟</li>
-        <li>尚品汇社区</li>
+        <li>谷粒商城社区</li>
       </ul>
       <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
       <div class="beian">京ICP备19006430号

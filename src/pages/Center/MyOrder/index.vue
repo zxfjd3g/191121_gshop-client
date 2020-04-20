@@ -23,8 +23,12 @@
         <thead>
           <tr>
             <th colspan="5">
-              <span class="ordertitle">{{order.createTime}}　订单编号：{{order.outTradeNo}} <span class="pull-right delete"><img
-                    src="./images/delete.png"></span></span>
+              <span class="ordertitle">
+                {{order.createTime}} >>>订单编号：{{order.outTradeNo}} 
+                <span class="pull-right delete">
+                  <img src="./images/delete.png">
+                </span>
+              </span>
             </th>
           </tr>
         </thead>
@@ -225,8 +229,7 @@
 
             a {
               float: left;
-              min-width: 80px;
-              max-width: 250px;
+              width: 250px;
               color: #e1251b;
 
               &.service {

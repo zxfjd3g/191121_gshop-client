@@ -14,7 +14,7 @@
       <div class="checkout-info">
         <h4>重要说明：</h4>
         <ol>
-          <li>尚品汇商城支付平台目前支持<span class="zfb">支付宝</span>支付方式。</li>
+          <li>谷粒商城商城支付平台目前支持<span class="zfb">支付宝</span>支付方式。</li>
           <li>其它支付渠道正在调试中，敬请期待。</li>
           <li>为了保证您的购物支付流程顺利完成，请保存以下支付宝信息。</li>
         </ol>
@@ -138,8 +138,10 @@
                       this.$msgbox.close()
                       // 跳转到支付成功界面
                       this.$router.push('/paysuccess')
+                      this.$message.success('支付成功22')
+                      // 删除订单中的所有购物项
+                      this.$store.dispatch('deleteCartItems')
 
-                      this.$message.success('支付成功')
                     }
                   })
                   .catch(error => {

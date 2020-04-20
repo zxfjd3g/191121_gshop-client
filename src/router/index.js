@@ -19,14 +19,14 @@ VueRouter.prototype.push = function (location, onComplete = () => {}, onAbort) {
 }
 
 // 通过失败的回调
-/* 
+
 VueRouter.prototype.replace = function (location, onComplete, onAbort=()=>{}) {
   return originPush.call(this, location, onComplete, onAbort)
-} */
-VueRouter.prototype.replace = function (location, onComplete, onAbort) {
+}
+/* VueRouter.prototype.replace = function (location, onComplete, onAbort) {
   return originReplace.call(this, location, onComplete, onAbort).catch(() => {})
 }
-
+ */
 
 
 // 声明使用vue的插件

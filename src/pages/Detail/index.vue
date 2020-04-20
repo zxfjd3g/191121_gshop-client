@@ -82,7 +82,7 @@
               <div class="controls">
                 <input autocomplete="off" class="itxt" v-model="skuNum">
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
-                <a href="javascript:" class="mins" @click="skuNum--" v-if="skuNum>1">-</a>
+                <a href="javascript:" class="mins" @click="skuNum>1 ? skuNum-- : ''">-</a>
               </div>
               <div class="add">
                 <a href="javascript:" @click="addToCart">加入购物车</a>

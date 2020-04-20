@@ -70,10 +70,13 @@
 <style lang="less">
   .spec-preview {
     position: relative;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
 
     img {
       width: 100%;
-      height: 100%
+      height: 100%;
     }
 
     .event {
@@ -82,7 +85,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 999;
+      z-index: 998;
     }
 
     .mask {
@@ -101,10 +104,11 @@
       position: absolute;
       top: -1px;
       left: 100%;
-      border: 1px solid #ccc;
+      border: 1px solid #aaa;
       overflow: hidden;
       z-index: 998;
       display: none;
+      background: white;
 
       img {
         width: 200%;

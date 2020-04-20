@@ -4,7 +4,7 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
+          <p>谷粒商城欢迎您！</p>
           <!-- 已登陆显示 -->
           <p v-if="userInfo.name">
             <span>{{userInfo.name}}</span>
@@ -22,10 +22,10 @@
         <div class="typeList">
           <router-link to="/center/myorder">我的订单</router-link>
           <router-link to="/shopcart">我的购物车</router-link>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
+          <a href="###">我的谷粒商城</a>
+          <a href="###">谷粒商城会员</a>
           <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
+          <a href="###">关注谷粒商城</a>
           <a href="###">合作招商</a>
           <a href="###">商家后台</a>
         </div>
@@ -172,15 +172,9 @@
 
         .typeList {
           float: right;
-
           a {
             padding: 0 10px;
-
-            &+a {
-              border-left: 1px solid #b3aeae;
-            }
           }
-
         }
 
       }

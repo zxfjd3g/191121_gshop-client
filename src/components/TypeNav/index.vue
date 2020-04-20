@@ -3,32 +3,24 @@
   <div class="type-nav">
     <div class="container">
 
-      <div @mouseenter="isShowFirst=true" @mouseleave="hideFirst">
+      <div @mouseenter="showFirst" @mouseleave="hideFirst">
         <h2 class="all">全部商品分类</h2>
         <transition name="move">
           <div class="sort" v-if="isShowFirst" @click="toSearch">
             <div class="all-sort-list2">
               <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
                 :class="{item_on: index===currentIndex}" @mouseenter="showSubCategorys(index)">
-                <!-- 
-                &.item_on {
-                    background: #ccc;
-                    .item-list {
-                      display: block;
-                    }
-                  }
-              -->
                 <h3>
                   <a href="javascript:" :data-categoryName="c1.categoryName"
                     :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
                   <!-- <router-link :to="{path: '/search', query: {categoryName: c1.categoryName, category1Id: c1.categoryId}}">{{c1.categoryName}}</router-link> -->
                 </h3>
-                <div class="item-list clearfix">
+                <div class="item-list clearfix" v-if="index===currentIndex">
                   <div class="subitem">
                     <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                       <dt>
                         <a href="javascript:" :data-categoryName="c2.categoryName"
-                          :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
+                          :data-category2Id="c2.categoryId">{{c2.categoryName.trim()}}</a>
                         <!-- <a href="javascript:">{{c2.categoryName}}</a> -->
                         <!-- <router-link :to="{path: '/search', query: {categoryName: c2.categoryName, category2Id: c2.categoryId}}">{{c2.categoryName}}</router-link> -->
                       </dt>
@@ -53,7 +45,7 @@
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
-        <a href="###">尚品汇超市</a>
+        <a href="###">谷粒商城超市</a>
         <a href="###">全球购</a>
         <a href="###">闪购</a>
         <a href="###">团购</a>
@@ -77,7 +69,7 @@
     data() {
       return {
         isShowFirst: true,
-        currentIndex: -1 //当前一级分类下标: 需要显示2/3分类列表的一级分类下标
+        currentIndex: -2 //当前一级分类下标: 需要显示2/3分类列表的一级分类下标
       }
     },
 
@@ -127,6 +119,12 @@
     },
 
     methods: {
+      
+      showFirst () {
+        this.isShowFirst=true
+        this.currentIndex = -1
+      },
+
       /* 
       显示指定下标的2/3级分类列表
       */
@@ -142,7 +140,9 @@
       // showSubCategorys: _.throttle(function (index) { // 通过lodash对象_throttle方法的来处理
       showSubCategorys: throttle(function (index) { // 直接通过throttle函数处理
         console.log('处理mouseenter事件的函数', index)
-        this.currentIndex = index
+        if (this.currentIndex!==-2) {
+          this.currentIndex = index
+        }
       }, 300),
 
       /* 
@@ -182,7 +182,7 @@
           } = this.$route
 
           this.isShowFirst = false
-          thi.currentIndex = -1
+          this.currentIndex = -2
 
           // 如果当前已经在搜索界面
           if (path.indexOf('/search') === 0) {
@@ -205,7 +205,7 @@
 
       hideFirst() {
         // 隐藏2/3级分类列表
-        this.currentIndex = -1
+        this.currentIndex = -2
 
         // 只有不在首页时才隐藏
         if (this.$route.path !== '/') {
@@ -255,16 +255,24 @@
         position: absolute;
         background: #fafafa;
         z-index: 999;
-        &.move-enter-active, &.move-leave-active {
+        &.move-enter-active {
           transition: all .3s;
         }
-        &.move-enter, &.move-leave-to {
+        &.move-enter {
           opacity: 0;
           height: 0;
         }
 
         .all-sort-list2 {
           .item {
+            &.item_on {
+              background: #ccc;
+
+              .item-list {
+                display: block;
+              }
+            }
+            
             h3 {
               line-height: 30px;
               font-size: 14px;
@@ -283,8 +291,8 @@
               position: absolute;
               width: 734px;
               min-height: 460px;
-              _height: 200px;
-              background: #f7f7f7;
+              // _height: 200px;
+              background: white;
               left: 210px;
               border: 1px solid #ddd;
               top: 0;
@@ -307,16 +315,16 @@
 
                   dt {
                     float: left;
-                    width: 54px;
+                    width: 100px;
                     line-height: 22px;
-                    text-align: right;
-                    padding: 3px 6px 0 0;
+                    padding: 3px 6px 0 10px;
                     font-weight: 700;
+                    font-size: 16px;
                   }
 
                   dd {
                     float: left;
-                    width: 415px;
+                    width: 650px;
                     padding: 3px 0 0;
                     overflow: hidden;
 
@@ -330,14 +338,6 @@
                     }
                   }
                 }
-              }
-            }
-
-            &.item_on {
-              background: #ccc;
-
-              .item-list {
-                display: block;
               }
             }
           }

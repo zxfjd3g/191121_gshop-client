@@ -49,8 +49,8 @@
             <li>夺宝岛</li>
             <li>DIY装机</li>
             <li>延保服务</li>
-            <li>尚品汇E卡</li>
-            <li>尚品汇通信</li>
+            <li>谷粒商城E卡</li>
+            <li>谷粒商城通信</li>
           </ul>
         </div>
         <div class="footerItem">

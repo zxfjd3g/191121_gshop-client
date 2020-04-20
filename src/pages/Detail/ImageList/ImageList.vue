@@ -36,7 +36,7 @@
           this.$nextTick(() => {
             new Swiper(this.$refs.swiper, {
               slidesPerView: 5, // 一次显示5页
-              slidesPerGroup: 2, // 以2页为单位翻页
+              slidesPerGroup: 5, // 以2页为单位翻页
               navigation: { //指定翻页按钮
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',

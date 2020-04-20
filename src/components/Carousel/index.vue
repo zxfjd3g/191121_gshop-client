@@ -2,7 +2,8 @@
   <div class="swiper-container" ref="swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="item in carouselList" :key="item.id">
-        <img :src="item.imgUrl" alt="">
+        <img :src="item.imgUrl" alt="" class="swiper-lazy">
+        <div class="swiper-lazy-preloader"></div>
       </div>
     </div>
     <!-- 如果需要分页器 -->
@@ -52,7 +53,6 @@ export default {
     // 监视carouselList  一般监视就可以
     carouselList: {
       handler () { // 说明carouselList状态数据发了改变, 但界面还没有更新
-
         // 只有数组中有数据, 才需要创建swiper对象 
         if (this.carouselList.length===0) return
 
@@ -78,7 +78,10 @@ export default {
             navigation: {
               nextEl: '.swiper-button-next',
               prevEl: '.swiper-button-prev',
-            }
+            },
+            lazy: {
+              loadPrevNext: true,
+            },
           })
         })
       },

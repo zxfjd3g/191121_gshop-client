@@ -23,13 +23,11 @@
               <div class="item-msg">{{item.skuName}}</div>
             </router-link>
           </li>
+
           <li class="cart-list-con3">
-            <div class="item-txt">语音升级款</div>
-          </li>
-          <li class="cart-list-con4">
             <span class="price">{{item.cartPrice}}</span>
           </li>
-          <li class="cart-list-con5">
+          <li class="cart-list-con4">
             <a href="javascript:void(0)" class="mins" 
               @click="changeItemCount(item, -1)">-</a>
             <input autocomplete="off" type="text" class="itxt" 
@@ -38,10 +36,10 @@
             <a href="javascript:void(0)" class="plus"
               @click="changeItemCount(item, 1)">+</a>
           </li>
-          <li class="cart-list-con6">
+          <li class="cart-list-con5">
             <span class="sum">{{item.skuNum * item.cartPrice}}</span>
           </li>
-          <li class="cart-list-con7">
+          <li class="cart-list-con6">
             <a href="javascript:" class="sindelet" @click="deleteCartItem(item.skuId)">删除</a>
             <br>
             <a href="#none">移到收藏</a>
@@ -193,25 +191,16 @@
         // 如果没有一个选中的, 不用做处理
         if (selectedItems.length===0) return
 
-        if(window.confirm('确定删除此购物项吗?')) {
-          const promises = []
-          // 删除selectedItems所有的购物项
-          selectedItems.forEach(item => {
-            // 删除item购物项
-            const promise = this.$store.dispatch('deleteCartItem2', item.skuId)
-            // 保存返回的promise
-            promises.push(promise)
-          })
-
-          // 如果都成功了, 才去重新获取新的购物车数据
-          Promise.all(promises).then(
-            values => { // 都成功了
-              this.$store.dispatch('getCartList')
-            },
-            error => {
-              alert(error.message || '删除购物项失败')
-            }
-          )
+        if(window.confirm('确定批量删除购物项吗?')) {
+          this.$store.dispatch('deleteCartItems')
+            .then(
+              values => { // 都成功了
+                this.$store.dispatch('getCartList')
+              },
+              error => {
+                alert(error.message || '批量删除购物项失败')
+              }
+            )
         }
       }
     }
@@ -241,7 +230,7 @@
         }
 
         .cart-th1 {
-          width: 25%;
+          width: 5%;
 
           input {
             vertical-align: middle;
@@ -253,14 +242,14 @@
         }
 
         .cart-th2 {
-          width: 25%;
+          width: 35%;
         }
 
         .cart-th3,
         .cart-th4,
         .cart-th5,
         .cart-th6 {
-          width: 12.5%;
+          width: 15%;
 
         }
       }
@@ -279,12 +268,11 @@
           }
 
           .cart-list-con1 {
-            width: 4.1667%;
+            width: 5%;
           }
 
           .cart-list-con2 {
-            width: 25%;
-
+            width: 35%;
             img {
               width: 82px;
               height: 82px;
@@ -293,28 +281,21 @@
 
             .item-msg {
               float: left;
-              width: 150px;
+              width: 200px;
               margin: 0 10px;
+              margin-top: 20px;
               line-height: 18px;
             }
           }
 
           .cart-list-con3 {
-            width: 20.8333%;
-
-            .item-txt {
-              text-align: center;
-            }
+            width: 15%;
+            padding-top: 20px;
           }
 
           .cart-list-con4 {
-            width: 12.5%;
-
-          }
-
-          .cart-list-con5 {
-            width: 12.5%;
-
+            width: 15%;
+            padding-top: 20px;
             .mins {
               border: 1px solid #ddd;
               border-right: 0;
@@ -345,17 +326,17 @@
             }
           }
 
-          .cart-list-con6 {
-            width: 12.5%;
-
+          .cart-list-con5 {
+            width: 15%;
+            padding-top: 20px;
             .sum {
               font-size: 16px;
             }
           }
 
-          .cart-list-con7 {
-            width: 12.5%;
-
+          .cart-list-con6 {
+            width: 15%;
+            padding-top: 20px;
             a {
               color: #666;
             }

@@ -39,7 +39,7 @@
                 <!-- <li :class="{active: options.order.indexOf('1')===0}"> -->
                 <li :class="{active: isActive('1')}" @click="setOrder('1')">
                   <a href="javascript:">
-                    综合{{getOrderIcon('1')}}
+                    综合<i class="iconfont" :class="getOrderIcon('1')"></i>
                   </a>
                 </li>
                 <li>
@@ -54,7 +54,7 @@
                 <!-- <li :class="{active: options.order.indexOf('2')===0}"> -->
                 <li :class="{active: isActive('2')}" @click="setOrder('2')">
                   <a href="javascript:">
-                    价格 {{getOrderIcon('2')}}
+                    价格 <i class="iconfont" :class="getOrderIcon('2')"></i>
                   </a>
                 </li>
                 <!-- <li>
@@ -86,7 +86,7 @@
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <a href="javascript:" class="sui-btn btn-bordered btn-danger">加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>
@@ -254,7 +254,7 @@
         const [flag, orderType] = this.options.order.split(':')
         // 如果2个排序标记相同, 返回排序图标显示
         if (orderFlag===flag) {
-          return orderType==='desc' ? '⬇' : '⬆'
+          return orderType==='desc' ? 'icondown' : 'iconup'
         } else { // 不显示排序图标
           return ''
         }
