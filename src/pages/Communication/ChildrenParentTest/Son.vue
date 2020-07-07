@@ -6,8 +6,10 @@
 </template>
 
 <script>
+import {myMixin} from './mixins'
 export default {
   name: 'Son',
+  mixins: [myMixin], // 可以使用包含n个mixin对象的数组
   data () {
     return {
       money: 30000
@@ -15,22 +17,7 @@ export default {
   },
 
   methods: {
-    /* 
-    花钱  
-    */
-    spendMoney (count) {
-      this.money -= count
-    },
-
-    /* 
-    给baba钱
-    */
-    gaveMoney (count) {
-      // 得到父组件对象, 更新其数据
-      this.$parent.money += count
-      // 更新自己的数据
-      this.money -= count
-    }
+    
   }
 }
 </script>
