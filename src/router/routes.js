@@ -193,6 +193,14 @@ export default [
         meta: {
           isHideFooter: true
         },
+      },
+
+      {
+        path: 'provide-inject',
+        component: () => import('@/pages/Communication/ProvideInjectTest/ProvideInjectTest'),
+        meta: {
+          isHideFooter: true
+        },
       }
     ],
   },
