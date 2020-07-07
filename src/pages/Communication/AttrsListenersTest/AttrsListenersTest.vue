@@ -7,7 +7,7 @@
     <hint-button title="修改商品" type="info" icon="el-icon-edit" 
       size="small" round @click="update"/>&nbsp;
     <hint-button title="删除商品" type="danger" icon="el-icon-delete" 
-      size="mini" circle></hint-button>
+      size="mini" circle @dblclick.native="remove"></hint-button>
 
   </div>
 </template>
@@ -29,6 +29,10 @@
       update () {
         alert('update')
       },
+
+      remove () {
+        alert('双击响应')
+      }
     },
 
     components: {
